@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Words } from "../utils/Data";
 import { useEffect } from "react";
+import Confetti from "react-confetti"
 const Button = () => {
   const [word, setWord] = useState("");
   const [score, setScore] = useState(0)
@@ -49,19 +50,28 @@ const Button = () => {
     return strArr.join("");
   }
   const scrambledWord = useMemo(() => scrambled, [])
-  //const mm
+  const resetWords = (e) => {
+    e.preventDefault() 
+    setWordsArr(Words)}
   return (
     <div className="p-4 flex flex-col gap-4">
     <p>{score}</p>
       <div className="bg-slate-400 h-44 rounded-xl p-4 flex gap-2 flex-wrap">
-        {newArr.map((word, idx) => (
-          <button
-            key={idx}
-            className="bg-white w-fit p-2 font-bold rounded-xl h-fit"
-          >
-            {scrambledWord(word.item)}
-          </button>
-        ))}
+        {wordsArr.length ? (
+            newArr.map((word, idx) => (
+                <p
+                  key={idx}
+                  className="bg-white w-fit p-2 font-bold rounded-xl h-fit"
+                >
+                  {scrambledWord(word.item)}
+                </p>
+              ))
+        ) : (
+            <div>
+                <p>You finished it in time</p>
+            </div>
+        )}
+        
       </div>
       <form className="flex flex-col gap-2" onSubmit={submitForm}>
         <input
@@ -80,7 +90,7 @@ const Button = () => {
         >
           Submit
         </button>) : (
-            <button onClick={() => setWordsArr(Words)}>
+            <button onClick={resetWords}>
                 Reset
             </button>
         )}
