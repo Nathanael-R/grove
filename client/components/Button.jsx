@@ -4,6 +4,7 @@ import { Words } from "../utils/Data";
 import { useEffect } from "react";
 import Countdown from "react-countdown";
 import { GrPowerReset, GrSend } from "react-icons/gr";
+import { useQuery } from "@tanstack/react-query";
 const Button = () => {
   const [word, setWord] = useState("");
   const [score, setScore] = useState(0);
@@ -13,6 +14,16 @@ const Button = () => {
     setWordsArr(Words);
   }, []);
 
+  const url = "http://localhost:3500/api"
+  const {data, error, isError} = useQuery({
+    queryKey: ['groups'],
+    queryFn: () => fetch(url).then(res => res.json()),
+  })
+
+  if(isError) {
+    console.log("Error fetching data:", error.message)
+  }
+  console.log(data)
   const wordCheck = () => {
     const check = wordsArr.find((text) => text.item === word);
     if (check) {
@@ -54,7 +65,7 @@ const Button = () => {
   const resetWords = (e) => {
     e.preventDefault();
     setWordsArr(Words);
-    setResetTimer(!resetTimer)
+    setResetTimer(!resetTimer);
   };
   const Timer = ({ minutes, seconds, completed }) => {
     if (completed) {
@@ -119,7 +130,7 @@ const Button = () => {
             onClick={resetWords}
           >
             Play again
-            <GrPowerReset size={20}/>
+            <GrPowerReset size={20} />
           </button>
         )}
       </form>
