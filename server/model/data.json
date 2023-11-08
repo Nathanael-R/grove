@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Algorithm",
+    "description": "A step-by-step procedure for solving a problem or performing a task."
+  },
+  {
+    "name": "Array",
+    "description": "A data structure that stores a collection of elements, typically of the same type, in a contiguous memory location."
+  },
+  {
+    "name": "Variable",
+    "description": "A named storage location in memory used to store data that can change during the program's execution."
+  },
+  {
+    "name": "Function",
+    "description": "A self-contained block of code that can be called to perform a specific task or computation."
+  },
+  {
+    "name": "Loop",
+    "description": "A control structure that repeatedly executes a block of code as long as a specified condition is true."
+  },
+  {
+    "name": "Object",
+    "description": "A composite data type that groups related data and functions into a single entity."
+  },
+  {
+    "name": "Class",
+    "description": "A blueprint or template for creating objects, defining their attributes and behaviors."
+  },
+  {
+    "name": "Inheritance",
+    "description": "A mechanism in object-oriented programming where a class inherits properties and methods from another class."
+  },
+  {
+    "name": "Polymorphism",
+    "description": "The ability of different objects to respond to the same method in a way that is specific to their individual types."
+  },
+  {
+    "name": "Encapsulation",
+    "description": "The bundling of data and methods that operate on that data into a single unit known as an object."
+  },
+  {
+    "name": "Recursion",
+    "description": "A technique in which a function calls itself to solve a problem by breaking it down into smaller, similar sub-problems."
+  },
+  {
+    "name": "Database",
+    "description": "A structured collection of data organized and stored for easy access, retrieval, and management."
+  },
+  {
+    "name": "Debugging",
+    "description": "The process of identifying and fixing errors and defects in software code."
+  },
+  {
+    "name": "Server",
+    "description": "A computer or software that provides services or resources to other computers, known as clients, over a network."
+  },
+  {
+    "name": "Frontend",
+    "description": "The user interface of a software application or website that users interact with directly."
+  },
+  {
+    "name": "Backend",
+    "description": "The server-side of a software application responsible for processing data and performing computations."
+  },
+  {
+    "name": "Databases",
+    "description": "Systems for storing, managing, and retrieving structured data, including relational databases and NoSQL databases."
+  },
+  {
+    "name": "Authentication",
+    "description": "The process of verifying the identity of a user or system before granting access to protected resources."
+  },
+  {
+    "name": "Authorization",
+    "description": "The process of determining what actions or resources a user or system is allowed to access after authentication."
+  },
+  {
+    "name": "JSON (JavaScript Object Notation)",
+    "description": "A lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate."
+  },
+  {
+    "name": "XML (eXtensible Markup Language)",
+    "description": "A markup language that defines rules for encoding documents in a format that is both human-readable and machine-readable."
+  },
+  {
+    "name": "REST (Representational State Transfer)",
+    "description": "An architectural style for designing networked applications, emphasizing simplicity and scalability."
+  },
+  {
+    "name": "HTTP Methods",
+    "description": "HTTP verbs used to indicate the desired action to be performed on a resource, such as GET, POST, PUT, and DELETE."
+  },
+  {
+    "name": "URL (Uniform Resource Locator)",
+    "description": "A reference or address used to access resources on the internet, specifying the protocol, domain, and path."
+  },
+  {
+    "name": "Responsive Web Design",
+    "description": "Designing web pages that adapt and provide an optimal viewing experience on various devices and screen sizes."
+  },
+  {
+    "name": "CMS (Content Management System)",
+    "description": "Software used to create, manage, and organize digital content, typically for websites."
+  },
+  {
+    "name": "Unit Testing",
+    "description": "A software testing technique where individual units or components of a program are tested in isolation."
+  },
+  {
+    "name": "Integration Testing",
+    "description": "Testing the interactions between different modules, components, or services to ensure they work together as one"
+  },
+  {
+    "name": "Conditional Statement",
+    "description": "A programming construct that allows you to make decisions and execute different code blocks based on a condition."
+  },
+  {
+    "name": "Data Type",
+    "description": "A classification that specifies which type of data can be stored in a variable, such as integers, strings, and floating-point numbers."
+  },
+  {
+    "name": "Exception Handling",
+    "description": "A mechanism for dealing with runtime errors or exceptional conditions in a program to prevent it from crashing."
+  },
+  {
+    "name": "API (Application Programming Interface)",
+    "description": "A set of rules and protocols that allows different software applications to communicate and interact with each other."
+  },
+  {
+    "name": "Version Control",
+    "description": "A system that tracks and manages changes to source code and other files, enabling collaboration and code history tracking."
+  },
+  {
+    "name": "IDE (Integrated Development Environment)",
+    "description": "A software application that provides comprehensive tools for writing, testing, and debugging code."
+  },
+  {
+    "name": "Regular Expression",
+    "description": "A pattern-matching language used for searching and manipulating strings based on specified patterns."
+  },
+  {
+    "name": "Web Development",
+    "description": "The process of creating websites and web applications using technologies such as HTML, CSS, and JavaScript."
+  },
+  {
+    "name": "HTTP (Hypertext Transfer Protocol)",
+    "description": "A protocol used for transferring data over the World Wide Web, typically used for requesting and serving web pages."
+  },
+  {
+    "name": "SQL (Structured Query Language)",
+    "description": "A domain-specific language used for managing and querying relational databases."
+  },
+  {
+    "name": "Web Server",
+    "description": "A software or hardware system that serves web content to client devices over the internet."
+  },
+  {
+    "name": "Web Hosting",
+    "description": "The service of providing server space and resources for hosting websites and web applications."
+  },
+  {
+    "name": "Version Control System (VCS)",
+    "description": "Software tools that track and manage changes to source code and files, enabling collaboration and code history tracking."
+  },
+  {
+    "name": "API Endpoint",
+    "description": "A specific URL or URI that represents a point of interaction for a web-based API."
+  }
+]

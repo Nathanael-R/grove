@@ -6,11 +6,11 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors())
 
-let groups = "Heyyy"
+app.use("/api", require("./api/data"))
 
-app.get("/", (req, res) => {
-    res.json(groups)
-})
+
+
+
 
 app.listen(PORT, () => {
     console.log(`listening on ${PORT}`)

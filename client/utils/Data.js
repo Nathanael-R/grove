@@ -3,10 +3,10 @@ export const Words = [
         id: 1,
         item: "Something"
     },
-    // {
-    //     id: 2,
-    //     item: "Stadium"
-    // },
+    {
+        id: 2,
+        item: "Stadium"
+    },
     // {
     //     id: 3,
     //     item: "Unbelievable"
