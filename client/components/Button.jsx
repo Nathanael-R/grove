@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useMemo, useState } from "react";
 import { Words } from "../utils/Data";
@@ -8,24 +9,44 @@ import socket from "../utils/socket";
 
 const Button = () => {
   const [word, setWord] = useState("");
-  const [score, setScore] = useState(0);
+  const [info, setInfo] = useState({
+    id: "",
+    score: 0
+  });
   const [wordsArr, setWordsArr] = useState([]);
   const [resetTimer, setResetTimer] = useState(false);
   useEffect(() => {
     setWordsArr(Words);
+    setId()
   }, []);
+
+  const setId = async () => {
+    try {
+        const token = await localStorage.getItem("userName")
+        const parsedToken = JSON.parse(token)
+        setInfo({
+            ...info,
+            id: parsedToken
+        })
+    } catch (e) {
+        console.log("Could not get username:", e)
+    }
+  } 
 
   const wordCheck = () => {
     const check = wordsArr.find((text) => text.item === word);
     if (check) {
       let newArr = wordsArr.filter((word) => word.id !== check.id);
       setWordsArr(newArr);
-      setScore(score + 1);
-      socket.emit("newScore", score)
+        setInfo({
+        ...info,
+        score: info.score + 1});
+      socket.emit("newScore", info)
     } else {
       alert("Good try but incorrect");
     }
   };
+  console.log(info)
   const submitForm = (e) => {
     e.preventDefault();
     setWord("");
