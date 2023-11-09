@@ -4,7 +4,8 @@ import { Words } from "../utils/Data";
 import { useEffect } from "react";
 import Countdown from "react-countdown";
 import { GrPowerReset, GrSend } from "react-icons/gr";
-import { useQuery } from "@tanstack/react-query";
+import socket from "../utils/socket";
+
 const Button = () => {
   const [word, setWord] = useState("");
   const [score, setScore] = useState(0);
@@ -14,22 +15,13 @@ const Button = () => {
     setWordsArr(Words);
   }, []);
 
-  const url = "http://localhost:3500/api"
-  const {data, error, isError} = useQuery({
-    queryKey: ['groups'],
-    queryFn: () => fetch(url).then(res => res.json()),
-  })
-
-  if(isError) {
-    console.log("Error fetching data:", error.message)
-  }
-  console.log(data)
   const wordCheck = () => {
     const check = wordsArr.find((text) => text.item === word);
     if (check) {
       let newArr = wordsArr.filter((word) => word.id !== check.id);
       setWordsArr(newArr);
       setScore(score + 1);
+      socket.emit("newScore", score)
     } else {
       alert("Good try but incorrect");
     }
@@ -65,12 +57,10 @@ const Button = () => {
   const resetWords = (e) => {
     e.preventDefault();
     setWordsArr(Words);
-    setResetTimer(!resetTimer);
+    setResetTimer(!resetTimer)
   };
   const Timer = ({ minutes, seconds, completed }) => {
-    if (completed) {
-      console.log("Done");
-    } else {
+    if (!completed) {
       return (
         <span>
           {minutes}:{seconds}
@@ -80,7 +70,7 @@ const Button = () => {
   };
 
   const memoTimer = useMemo(
-    () => <Countdown date={Date.now() + 300000} renderer={Timer} />,
+    () => <Countdown date={Date.now() + 3000} renderer={Timer} />,
     [resetTimer]
   );
   return (
@@ -122,7 +112,7 @@ const Button = () => {
             className="w-fit self-center py-3 px-6 rounded-xl bg-red-400 text-white text-lg font-semibold flex items-center gap-2"
           >
             Submit
-            <GrSend size={20} />
+            <GrSend size={20}/>
           </button>
         ) : (
           <button
@@ -130,7 +120,7 @@ const Button = () => {
             onClick={resetWords}
           >
             Play again
-            <GrPowerReset size={20} />
+            <GrPowerReset size={20}/>
           </button>
         )}
       </form>
