@@ -11,42 +11,43 @@ const Button = () => {
   const [word, setWord] = useState("");
   const [info, setInfo] = useState({
     id: "",
-    score: 0
+    score: 0,
   });
   const [wordsArr, setWordsArr] = useState([]);
   const [resetTimer, setResetTimer] = useState(false);
   useEffect(() => {
     setWordsArr(Words);
-    setId()
+    setId();
   }, []);
 
-  const setId = async () => {
+  const setId = () => {
     try {
-        const token = await localStorage.getItem("userName")
-        const parsedToken = JSON.parse(token)
-        setInfo({
-            ...info,
-            id: parsedToken
-        })
+      const token = localStorage.getItem("userName");
+      const parsedToken = JSON.parse(token);
+      setInfo({
+        ...info,
+        id: parsedToken,
+      });
     } catch (e) {
-        console.log("Could not get username:", e)
+      console.log("Could not get username:", e);
     }
-  } 
+  };
 
   const wordCheck = () => {
     const check = wordsArr.find((text) => text.item === word);
     if (check) {
       let newArr = wordsArr.filter((word) => word.id !== check.id);
       setWordsArr(newArr);
-        setInfo({
+      setInfo({
         ...info,
-        score: info.score + 1});
-      socket.emit("newScore", info)
+        score: info.score + 1,
+      });
+      socket.emit("newScore", info);
     } else {
       alert("Good try but incorrect");
     }
   };
-  console.log(info)
+  console.log(info);
   const submitForm = (e) => {
     e.preventDefault();
     setWord("");
@@ -78,7 +79,7 @@ const Button = () => {
   const resetWords = (e) => {
     e.preventDefault();
     setWordsArr(Words);
-    setResetTimer(!resetTimer)
+    setResetTimer(!resetTimer);
   };
   const Timer = ({ minutes, seconds, completed }) => {
     if (!completed) {
@@ -133,7 +134,7 @@ const Button = () => {
             className="w-fit self-center py-3 px-6 rounded-xl bg-red-400 text-white text-lg font-semibold flex items-center gap-2"
           >
             Submit
-            <GrSend size={20}/>
+            <GrSend size={20} />
           </button>
         ) : (
           <button
@@ -141,7 +142,7 @@ const Button = () => {
             onClick={resetWords}
           >
             Play again
-            <GrPowerReset size={20}/>
+            <GrPowerReset size={20} />
           </button>
         )}
       </form>

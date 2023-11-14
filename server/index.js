@@ -8,6 +8,45 @@ const io = require("socket.io")(http, {
     origin: "http://localhost:5173",
   },
 });
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri = `mongodb+srv://Rhayne:ZumWoMXBp4JrqOdk@grove.tqqxddf.mongodb.net/?retryWrites=true&w=majority`;
+
+const dbName = "grove";
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    const db = client.db(dbName);
+    const col = db.collection("users");
+
+    //create user details
+    let userDocument = {
+      name: "Wraith",
+      score: 10,
+    };
+
+    //insert a document into the field
+    const p = await col.insertOne(userDocument)
+    const filter = { "name": "Wraith" };
+    const document = await col.findOne(filter);
+    console.log("Document found:\n" + JSON.stringify(document));
+  } catch (err) {
+    console.error(err)
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
