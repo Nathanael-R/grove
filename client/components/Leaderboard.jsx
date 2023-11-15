@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const Leaderboard = () => {
   const [user, setUser] = useState("");
   const url = "http://localhost:3500/api";
-  const { data, error, isError, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["api"],
     queryFn: () => fetch(url).then((res) => res.json()),
   });

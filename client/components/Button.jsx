@@ -10,8 +10,8 @@ import socket from "../utils/socket";
 const Button = () => {
   const [word, setWord] = useState("");
   const [info, setInfo] = useState({
-    id: "",
-    score: 0,
+    name: "",
+    score: 1,
   });
   const [wordsArr, setWordsArr] = useState([]);
   const [resetTimer, setResetTimer] = useState(false);
@@ -24,10 +24,10 @@ const Button = () => {
     try {
       const token = localStorage.getItem("userName");
       const parsedToken = JSON.parse(token);
-      setInfo({
-        ...info,
-        id: parsedToken,
-      });
+      setInfo(prev => ({
+        ...prev,
+        name: parsedToken,
+      }));
     } catch (e) {
       console.log("Could not get username:", e);
     }
@@ -38,10 +38,10 @@ const Button = () => {
     if (check) {
       let newArr = wordsArr.filter((word) => word.id !== check.id);
       setWordsArr(newArr);
-      setInfo({
-        ...info,
+      setInfo(prev => ({
+        ...prev,
         score: info.score + 1,
-      });
+      }));
       socket.emit("newScore", info);
     } else {
       alert("Good try but incorrect");

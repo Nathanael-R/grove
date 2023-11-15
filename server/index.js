@@ -8,6 +8,7 @@ const io = require("socket.io")(http, {
     origin: "http://localhost:5173",
   },
 });
+let leaderboard = [];
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://Rhayne:ZumWoMXBp4JrqOdk@grove.tqqxddf.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -24,22 +25,26 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
+    //create user details
     const db = client.db(dbName);
     const col = db.collection("users");
-
-    //create user details
-    let userDocument = {
-      name: "Wraith",
-      score: 10,
-    };
-
+    let user = leaderboard[0];
+    if (user) {
+      const p = await col.insertOne(user);
+      console.log("this is ", p);
+    } else {
+      return null;
+    }
     //insert a document into the field
-    const p = await col.insertOne(userDocument)
-    const filter = { "name": "Wraith" };
+    const filter = { name: "Rhayne" };
     const document = await col.findOne(filter);
     console.log("Document found:\n" + JSON.stringify(document));
   } catch (err) {
-    console.error(err)
+    console.error(err);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -50,22 +55,59 @@ run().catch(console.dir);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
-let leaderboard = [];
-
 io.on("connection", (socket) => {
   //remember to refactor this eventually since each window refreshes the score board
-  socket.on("newScore", (info) => {
-    const checkUser = leaderboard.find((user) => user.id === info.id);
-    if (!checkUser) {
-      leaderboard.push(info);
-    } else {
-      let index = leaderboard.indexOf(checkUser);
-      leaderboard[index].score += info.score;
+  socket.on("newScore", async (info) => {
+    try {
+      // Connect the client to the server	(optional starting in v4.7)
+      await client.connect();
+      // Send a ping to confirm a successful connection
+      await client.db("admin").command({ ping: 1 });
+      console.log("MongoDB second connection successful!");
+      //create user details
+      const db = client.db(dbName);
+      const col = db.collection("users");
+      // let user = leaderboard[0]
+      // if (user) {
+      //     const p = await col.insertOne(user)
+      //     console.log("this is ", p)
+      // } else {
+      //     return null
+      // }
+      if (info) {
+        const userDetails = { name: info?.name };
+        const find = await col.findOne(userDetails);
+        if (find) {
+           let array = await col.find().toArray()
+           console.log(array)
+          const update = await col.updateOne(userDetails, {
+            $set: { score: info?.score },
+          });
+          console.log(update);
+        } else {
+          const upload = await col.insertOne(info);
+          console.log("uploaded info", upload);
+        }
+      } else {
+        return null;
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      // Ensures that the client will close when you finish/error
+      await client.close();
     }
 
-    io.emit("updatedScores", leaderboard);
-    console.log(leaderboard);
+    //     const checkUser = leaderboard.find((user) => user.name === info.name);
+    //   console.log(info)
+    //   if (!checkUser) {
+    //     leaderboard.push(info);
+    //   } else {
+    //     let index = leaderboard.indexOf(checkUser);
+    //     leaderboard[index].score = info.score;
+    //   }
+
+    //io.emit("updatedScores", leaderboard);
   });
 });
 

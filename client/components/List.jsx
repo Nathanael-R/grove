@@ -13,7 +13,7 @@ const List = () => {
       .catch((error) => console.error("Error fetching leaderboard:", error));
   };
 
-  console.log(data[data.length - 1]?.score)
+  console.log(data)
   useEffect(() => {
     fetchLeaderBoard();
 
@@ -29,7 +29,7 @@ const List = () => {
       {
         data.map((player, idx) => {
           return (
-            <Item key={idx} score={player?.score} id={player?.id}/>
+            <Item key={idx} score={player?.score} name={player?.name}/>
           )
         })
       }
