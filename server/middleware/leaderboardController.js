@@ -1,17 +1,12 @@
+const getLeaderboard = require('../model/boardData')
 
-const data = {
-    allData: require('../model/data.json'),
-    setAllData: function (data) {
-        this.allData = data
-    }
+async function displayScores () {
+    let data = await getLeaderboard()
+    return data
+}
+const getData = async (req, res) => {
+    let scores = await displayScores()
+    res.json(scores)
 }
 
-const getData = (req, res) => {
-    res.json(data.allData)
-}
-
-module.exports = {
-    getData
-}
-
-//Here's where the database will give the server info and the server will serve it as an api data to the frontend.  
+module.exports = getData

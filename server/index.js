@@ -37,9 +37,6 @@ async function run() {
     console.log("Document found:\n" + JSON.stringify(document));
   } catch (err) {
     console.error(err);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
   }
 }
 run().catch(console.dir);
@@ -106,9 +103,7 @@ io.on("connection", (socket) => {
 
 app.use("/api", require("./api/data"));
 
-app.get("/leaderboard", (req, res) => {
-  res.json(leaderboard);
-});
+app.use('/leaderboard', require("./api/leaderboard"))
 
 //if you're using plain express you'll use app.listen but with socket-io it becomes http.listen else your socket client won't connect
 http.listen(PORT, () => {
