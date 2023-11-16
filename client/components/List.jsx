@@ -24,12 +24,12 @@ const List = () => {
   }, []); // Only run the effect once on component mount
 
   function scoreSort (a, b) {
-    return a-b
+    return b.score-a.score
   }
   return (
     <div className="p-4">
       {
-        data.sort().map((player, idx) => {
+        data.sort(scoreSort).map((player, idx) => {
           return (
             <Item key={idx} score={player?.score} name={player?.name}/>
           )
