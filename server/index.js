@@ -8,18 +8,10 @@ const io = require("socket.io")(http, {
     origin: "http://localhost:5173",
   },
 });
+const {client, dbName} = require("./db");
+const getLeaderboard = require("./model/boardData");
 let leaderboard = [];
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = `mongodb+srv://Rhayne:ZumWoMXBp4JrqOdk@grove.tqqxddf.mongodb.net/?retryWrites=true&w=majority`;
 
-const dbName = "grove";
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -59,6 +51,7 @@ io.on("connection", (socket) => {
   //remember to refactor this eventually since each window refreshes the score board
   socket.on("newScore", async (info) => {
     try {
+        getLeaderboard()
       // Connect the client to the server	(optional starting in v4.7)
       await client.connect();
       // Send a ping to confirm a successful connection
@@ -78,8 +71,8 @@ io.on("connection", (socket) => {
         const userDetails = { name: info?.name };
         const find = await col.findOne(userDetails);
         if (find) {
-           let array = await col.find().toArray()
-           console.log(array)
+        //    let array = await col.find().toArray()
+        //    console.log(array)
           const update = await col.updateOne(userDetails, {
             $set: { score: info?.score },
           });
