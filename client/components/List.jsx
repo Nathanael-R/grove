@@ -28,8 +28,9 @@ const List = () => {
   }
   return (
     <div className="p-4">
+      <p className="text-center text-xl font-semibold mb-4">Leaderboard</p>
       {
-        data.sort(scoreSort).map((player, idx) => {
+        data.slice(0, 5).sort(scoreSort).map((player, idx) => {
           return (
             <Item key={idx} score={player?.score} name={player?.name}/>
           )

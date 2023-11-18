@@ -17,21 +17,7 @@ const Button = () => {
   const [resetTimer, setResetTimer] = useState(false);
   useEffect(() => {
     setWordsArr(Words);
-    setId();
   }, []);
-
-  const setId = () => {
-    try {
-      const token = localStorage.getItem("userName");
-      const parsedToken = JSON.parse(token);
-      setInfo(prev => ({
-        ...prev,
-        name: parsedToken,
-      }));
-    } catch (e) {
-      console.log("Could not get username:", e);
-    }
-  };
 
   const wordCheck = () => {
     const check = wordsArr.find((text) => text.item === word);
@@ -47,7 +33,6 @@ const Button = () => {
       alert("Good try but incorrect");
     }
   };
-  console.log(info);
   const submitForm = (e) => {
     e.preventDefault();
     setWord("");
@@ -75,6 +60,7 @@ const Button = () => {
     }
     return strArr.join("");
   }
+  //should be in its own component 
   const scrambledWord = useMemo(() => scrambled, []);
   const resetWords = (e) => {
     e.preventDefault();

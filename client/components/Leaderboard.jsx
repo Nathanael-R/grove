@@ -28,15 +28,8 @@ const Leaderboard = () => {
 
   return (
     <section>
-      <form className="bg-blue-400 flex h-56 w-full rounded-b-xl items-center justify-center">
-        <input
-          value={user}
-          onChange={(event) => setUser(event.target.value)}
-          className="h-10 w-72"
-        />
-        <button onClick={saveDetails}>Submit</button>
-      </form>
       <List />
+      
       {data !== undefined && <Button data={data} />}
     </section>
   );
